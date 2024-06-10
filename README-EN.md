@@ -1,7 +1,7 @@
 > [!NOTE]
-> Contacts: [Telegram](https://t.me/mudachyo)
-> 
-> 🇷🇺 README на русском доступен [здесь](README.md)
+> - Contacts: [Telegram](https://t.me/mudachyo)
+> - Channel: [Telegram Channel](https://t.me/shopalenka) 
+> - 🇷🇺 README на русском доступен [здесь](README.md)
 ---
 ## How to run  
 - Install the [Resource Override](https://chromewebstore.google.com/detail/resource-override/pkoacgokdfckfpndoffpifphamojphii) extension in your browser.
@@ -21,7 +21,7 @@
 > 
 > - [MemeFi](https://github.com/mudachyo/MemeFi-Coin)
 > 
-> - [Blum](https://github.com/mudachyo/Blum)
+> - [Blum + Autoclicker](https://github.com/mudachyo/Blum)
 ---
 > [!IMPORTANT] 
 > Donation
