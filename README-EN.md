@@ -9,12 +9,13 @@
 - Tab URL: `*` From: `https://telegram.org/js/telegram-web-app.js` To: `https://ktnff.tech/universal/telegram-web-app.js`
 - ![Extension settings](settings.png)
 ### Open [Bot MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
-- ![Result](resultat.png)
+
 
 ## Auto Clicker
 - Open https://app.requestly.io/rules#sharedList/1718139124250-MemeFi-autoclicker
 - Click _Import to my rules_ on the top right. and turn on the Status switch ![status](status.png)
 - Open [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
+- ![Result](resultat.png)
 
 ---
 > [!TIP]
