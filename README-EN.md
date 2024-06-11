@@ -11,6 +11,7 @@
 ### Open [Bot MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
 
 ## Auto Clicker
+- Install the extension in your browser [Requestly](https://chromewebstore.google.com/detail/requestly-intercept-modif/mdnleldcmiljblolnjhpnblkcekpdkpa)
 - Open https://app.requestly.io/rules#sharedList/1718139124250-MemeFi-autoclicker
 - Click _Import to my rules_ on the top right. and turn on the Status switch ![status](status.png)
 - Open [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game

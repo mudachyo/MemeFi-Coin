@@ -11,6 +11,7 @@
 ### Открыть [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) и запустить игру
 
 ## Автокликер
+- Установить в свой бразуер расширение [Requestly](https://chromewebstore.google.com/detail/requestly-intercept-modif/mdnleldcmiljblolnjhpnblkcekpdkpa)
 - Открыть https://app.requestly.io/rules#sharedList/1718139124250-MemeFi-autoclicker
 - Нажать _Import to my rules_ справа сверху и включите переключатель Status ![status](status.png)
 - Открыть [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) и запустить игру
