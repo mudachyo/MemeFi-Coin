@@ -11,6 +11,10 @@
 ### Открыть [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) и запустить игру
 - ![Результат](resultat.png)
 
+## Автокликер
+- Открыть https://app.requestly.io/rules#sharedList/1718139124250-MemeFi-autoclicker
+- Нажать _Import to my rules_ справа сверху и включите переключатель Status ![status](status.png)
+- Открыть [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) и запустить игру
 ---
 > [!TIP]
 > Другие репозитории:
@@ -23,7 +27,7 @@
 >
 > - [PixelTap + Autoclicker](https://github.com/mudachyo/PixelTap)
 > 
-> - [MemeFi](https://github.com/mudachyo/MemeFi-Coin)
+> - [MemeFi + Autoclicker](https://github.com/mudachyo/MemeFi-Coin)
 ---
 > [!IMPORTANT] 
 > Пожертвование
