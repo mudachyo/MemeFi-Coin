@@ -3,20 +3,13 @@
 > - Channel: [Telegram Channel](https://t.me/shopalenka) 
 > - 🇷🇺 README на русском доступен [здесь](README.md)
 ---
-## How to run  
-- Install the [Resource Override](https://chromewebstore.google.com/detail/resource-override/pkoacgokdfckfpndoffpifphamojphii) extension in your browser.
-- Open the extension settings and enter the following data:
-- Tab URL: `*` From: `https://telegram.org/js/telegram-web-app.js` To: `https://ktnff.tech/universal/telegram-web-app.js`
-- ![Extension settings](settings.png)
-### Open [Bot MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
-
-## Auto Clicker
-- Install the extension in your browser [Requestly](https://chromewebstore.google.com/detail/requestly-intercept-modif/mdnleldcmiljblolnjhpnblkcekpdkpa)
-- Open https://app.requestly.io/rules#sharedList/1718187631347-MemeFi-autoclicker
-- Click _Import to my rules_ on the top right. and turn on the Status switch ![status](status.png)
-- Open [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
+## Как запустить  
+- Install extension in your browser [Violentmonkey](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag?hl=be)
+- In order for **MemeFi** to open in a browser, install [this script](https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-web.user.js)
+- To install **autoclicker** install [this script](https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-autoclicker.user.js)
+- Open [Bot MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
 ---
-- ![Result](resultat.png)
+- ![Result](result.png)
 
 ---
 > [!TIP]

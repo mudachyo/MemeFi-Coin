@@ -4,19 +4,12 @@
 > - 🇪🇳 README in english available [here](README-EN.md)
 ---
 ## Как запустить  
-- Установить в свой бразуер расширение [Resource Override](https://chromewebstore.google.com/detail/resource-override/pkoacgokdfckfpndoffpifphamojphii)
-- Открыть настройки расширения и вписать следующие данные:
-- Tab URL: `*` From: `https://telegram.org/js/telegram-web-app.js` To: `https://ktnff.tech/universal/telegram-web-app.js`
-- ![Настройки расширения](settings.png)
-### Открыть [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) и запустить игру
-
-## Автокликер
-- Установить в свой бразуер расширение [Requestly](https://chromewebstore.google.com/detail/requestly-intercept-modif/mdnleldcmiljblolnjhpnblkcekpdkpa)
-- Открыть https://app.requestly.io/rules#sharedList/1718187631347-MemeFi-autoclicker
-- Нажать _Import to my rules_ справа сверху и включите переключатель Status ![status](status.png)
+- Установить в свой браузер расширение [Violentmonkey](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag?hl=be)
+- Для того, чтобы **MemeFi** открывался в браузере установите [этот скрипт](https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-web.user.js)
+- Для установки **автокликера** установите [этот скрипт](https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-autoclicker.user.js)
 - Открыть [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) и запустить игру
 ---
-- ![Результат](resultat.png)
+- ![Результат](result.png)
   
 ---
 > [!TIP]
