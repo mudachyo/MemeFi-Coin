@@ -1,3 +1,16 @@
+// ==UserScript==
+// @name         MemeFI Autoclicker
+// @version      1.0
+// @description  Running TapSwap in a browser
+// @author       mudachyo
+// @match        https://tg-app.memefi.club/*
+// @grant        none
+// @icon         https://s2.coinmarketcap.com/static/img/coins/64x64/29373.png
+// @downloadURL  https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-autoclicker.user.js
+// @updateURL    https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-autoclicker.user.js
+// @homepage     https://github.com/mudachyo/MemeFi-Coin
+// ==/UserScript==
+
 // Функция для генерации и отправки событий клика с рандомными координатами
 function triggerClick(element) {
     // Генерация случайных координат в пределах 422x321
@@ -24,7 +37,7 @@ function findAndClick() {
     if (targetElement) {
         function clickWithRandomInterval() {
             triggerClick(targetElement);
-            const randomInterval = Math.floor(Math.random() * (170 - 10 + 1)) + 10;
+            const randomInterval = Math.floor(Math.random() * (100 - 10 + 1)) + 10;
             setTimeout(clickWithRandomInterval, randomInterval);
         }
 
@@ -66,7 +79,8 @@ console.error = console.warn = console.info = console.debug = () => { };
 // Очистка консоли и стартовые сообщения
 console.clear();
 console.log(`${logPrefix}Starting`, styles.starting);
-console.log(`${logPrefix}Created by t.me/mudachyo`, styles.starting);
+console.log(`${logPrefix}Created by https://t.me/mudachyo`, styles.starting);
+console.log(`${logPrefix}Github https://github.com/mudachyo/MemeFi-Coin`, styles.starting);
 
 // Начало поиска и автокликера
 let attempts = 0;
