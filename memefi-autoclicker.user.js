@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.0
+// @version      1.1
 // @description  Running TapSwap in a browser
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
@@ -37,7 +37,7 @@ function findAndClick() {
     if (targetElement) {
         function clickWithRandomInterval() {
             triggerClick(targetElement);
-            const randomInterval = Math.floor(Math.random() * (100 - 10 + 1)) + 10;
+            const randomInterval = Math.floor(Math.random() * (130 - 30 + 1)) + 30;
             setTimeout(clickWithRandomInterval, randomInterval);
         }
 
