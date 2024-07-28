@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI web
-// @version      1.0
+// @version      1.1
 // @description  Running TapSwap in a browser
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
@@ -15,7 +15,7 @@
     'use strict';
 
     const originalUrl = 'https://telegram.org/js/telegram-web-app.js';
-    const newUrl = 'https://ktnff.tech/universal/telegram-web-app.js';
+    const newUrl = 'https://mudachyo.codes/universal/telegram-web-app.js';
 
     // Create a MutationObserver to watch for script tags being added to the DOM
     const observer = new MutationObserver((mutations) => {
