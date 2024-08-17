@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.3
+// @version      1.4
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -11,25 +11,26 @@
 // ==/UserScript==
 
 let GAME_SETTINGS = {
-    minClickDelay: 30,
-    maxClickDelay: 130,
-    pauseMinTime: 100000,
-    pauseMaxTime: 300000,
+  minClickDelay: 30,
+  maxClickDelay: 130,
+  pauseMinTime: 100000,
+  pauseMaxTime: 300000,
+autoSpin: false,
 };
 
 const styles = {
-    success: 'background: #28a745; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
-    starting: 'background: #8640ff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
-    error: 'background: #dc3545; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
-    info: 'background: #007bff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;'
+  success: 'background: #28a745; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
+  starting: 'background: #8640ff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
+  error: 'background: #dc3545; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
+  info: 'background: #007bff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;'
 };
 const logPrefix = '%c[MemeFiBot] ';
 
 const originalLog = console.log;
 console.log = function () {
-    if (typeof arguments[0] === 'string' && arguments[0].includes('[MemeFiBot]')) {
-        originalLog.apply(console, arguments);
-    }
+  if (typeof arguments[0] === 'string' && arguments[0].includes('[MemeFiBot]')) {
+      originalLog.apply(console, arguments);
+  }
 };
 
 console.error = console.warn = console.info = console.debug = () => { };
@@ -42,54 +43,54 @@ console.log(`${logPrefix}Github https://github.com/mudachyo/MemeFi-Coin`, styles
 let isGamePaused = false;
 
 function triggerClick(element) {
-    const randomX = Math.floor(Math.random() * 422);
-    const randomY = Math.floor(Math.random() * 321);
+  const randomX = Math.floor(Math.random() * 422);
+  const randomY = Math.floor(Math.random() * 321);
 
-    const events = [
-        new MouseEvent('pointerover', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
-        new MouseEvent('pointerenter', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
-        new MouseEvent('mouseover', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
-        new MouseEvent('mousedown', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
-        new MouseEvent('pointerdown', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
-        new MouseEvent('mouseup', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
-        new MouseEvent('pointerup', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY })
-    ];
+  const events = [
+      new MouseEvent('pointerover', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
+      new MouseEvent('pointerenter', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
+      new MouseEvent('mouseover', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
+      new MouseEvent('mousedown', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
+      new MouseEvent('pointerdown', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
+      new MouseEvent('mouseup', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY }),
+      new MouseEvent('pointerup', { view: window, bubbles: true, cancelable: true, clientX: randomX, clientY: randomY })
+  ];
 
-    events.forEach(event => element.dispatchEvent(event));
+  events.forEach(event => element.dispatchEvent(event));
 }
 
 function findAndClick() {
-    if (isGamePaused) {
-        setTimeout(findAndClick, 1000);
-        return;
-    }
+  if (isGamePaused) {
+      setTimeout(findAndClick, 1000);
+      return;
+  }
 
-    const targetElement = document.querySelector('div[aria-disabled="false"].css-79elbk');
+  const targetElement = document.querySelector('div[aria-disabled="false"].css-79elbk');
 
-    if (targetElement) {
-        function clickWithRandomInterval() {
-            if (isGamePaused) {
-                setTimeout(findAndClick, 1000);
-                return;
-            }
-            triggerClick(targetElement);
-            const randomInterval = Math.floor(Math.random() * (GAME_SETTINGS.maxClickDelay - GAME_SETTINGS.minClickDelay + 1)) + GAME_SETTINGS.minClickDelay;
-            setTimeout(clickWithRandomInterval, randomInterval);
-        }
+  if (targetElement) {
+      function clickWithRandomInterval() {
+          if (isGamePaused) {
+              setTimeout(findAndClick, 1000);
+              return;
+          }
+          triggerClick(targetElement);
+          const randomInterval = Math.floor(Math.random() * (GAME_SETTINGS.maxClickDelay - GAME_SETTINGS.minClickDelay + 1)) + GAME_SETTINGS.minClickDelay;
+          setTimeout(clickWithRandomInterval, randomInterval);
+      }
 
-        console.log(`${logPrefix}Element found. Starting auto-clicker...`, styles.success);
-        clickWithRandomInterval();
-    } else {
-        if (attempts < 5) {
-            attempts++;
-            console.log(`${logPrefix}Attempt ${attempts} to find the element failed. Retrying in 3 seconds...`, styles.info);
-            setTimeout(findAndClick, 3000);
-        } else {
-            console.log(`${logPrefix}Element not found after 5 attempts. Restarting search...`, styles.error);
-            attempts = 0;
-            setTimeout(findAndClick, 3000);
-        }
-    }
+      console.log(`${logPrefix}Element found. Starting auto-clicker...`, styles.success);
+      clickWithRandomInterval();
+  } else {
+      if (attempts < 5) {
+          attempts++;
+          console.log(`${logPrefix}Attempt ${attempts} to find the element failed. Retrying in 3 seconds...`, styles.info);
+          setTimeout(findAndClick, 3000);
+      } else {
+          console.log(`${logPrefix}Element not found after 5 attempts. Restarting search...`, styles.error);
+          attempts = 0;
+          setTimeout(findAndClick, 3000);
+      }
+  }
 }
 
 const settingsMenu = document.createElement('div');
@@ -104,31 +105,42 @@ const closeButton = document.createElement('button');
 closeButton.className = 'settings-close-button';
 closeButton.textContent = '×';
 closeButton.onclick = () => {
-    settingsMenu.style.display = 'none';
+  settingsMenu.style.display = 'none';
 };
 
 menuTitle.appendChild(closeButton);
 settingsMenu.appendChild(menuTitle);
 
 function toggleGamePause() {
-    isGamePaused = !isGamePaused;
-    pauseResumeButton.textContent = isGamePaused ? 'Resume' : 'Pause';
-    pauseResumeButton.style.backgroundColor = isGamePaused ? '#e5c07b' : '#98c379';
+  isGamePaused = !isGamePaused;
+  pauseResumeButton.textContent = isGamePaused ? 'Resume' : 'Pause';
+  pauseResumeButton.style.backgroundColor = isGamePaused ? '#e5c07b' : '#98c379';
 }
 
 function updateSettingsMenu() {
-    document.getElementById('minClickDelay').value = GAME_SETTINGS.minClickDelay;
-    document.getElementById('minClickDelayDisplay').textContent = GAME_SETTINGS.minClickDelay;
-    document.getElementById('maxClickDelay').value = GAME_SETTINGS.maxClickDelay;
-    document.getElementById('maxClickDelayDisplay').textContent = GAME_SETTINGS.maxClickDelay;
+  document.getElementById('minClickDelay').value = GAME_SETTINGS.minClickDelay;
+  document.getElementById('minClickDelayDisplay').textContent = GAME_SETTINGS.minClickDelay;
+  document.getElementById('maxClickDelay').value = GAME_SETTINGS.maxClickDelay;
+  document.getElementById('maxClickDelayDisplay').textContent = GAME_SETTINGS.maxClickDelay;
 }
 
 settingsMenu.appendChild(createSettingElement('Min Click Delay (ms)', 'minClickDelay', 'range', 10, 5000, 10,
-    'EN: Minimum delay between clicks.<br>' +
-    'RU: Минимальная задержка между кликами.'));
+  'EN: Minimum delay between clicks.<br>' +
+  'RU: Минимальная задержка между кликами.'));
 settingsMenu.appendChild(createSettingElement('Max Click Delay (ms)', 'maxClickDelay', 'range', 10, 5000, 10,
-    'EN: Maximum delay between clicks.<br>' +
-    'RU: Максимальная задержка между кликами.'));
+  'EN: Maximum delay between clicks.<br>' +
+  'RU: Максимальная задержка между кликами.'));
+
+const messageBox = document.createElement('div');
+messageBox.className = 'message-box';
+messageBox.style.display = 'none';
+document.body.appendChild(messageBox);
+
+const autoSpinButton = document.createElement('button');
+autoSpinButton.textContent = 'AutoSpin: Off';
+autoSpinButton.className = 'auto-spin-btn';
+autoSpinButton.onclick = toggleAutoSpin;
+settingsMenu.appendChild(autoSpinButton);
 
 const pauseResumeButton = document.createElement('button');
 pauseResumeButton.textContent = 'Pause';
@@ -157,250 +169,313 @@ settingsMenu.appendChild(socialButtons);
 
 document.body.appendChild(settingsMenu);
 
+function toggleAutoSpin() {
+  GAME_SETTINGS.autoSpin = !GAME_SETTINGS.autoSpin;
+  autoSpinButton.textContent = GAME_SETTINGS.autoSpin ? 'AutoSpin: On' : 'AutoSpin: Off';
+  autoSpinButton.style.backgroundColor = GAME_SETTINGS.autoSpin ? '#98c379' : '#e06c75';
+  saveSettings();
+  if (GAME_SETTINGS.autoSpin) {
+      clickButton();
+  }
+}
+
+function clickButton() {
+  if (!GAME_SETTINGS.autoSpin) return;
+
+  const button = document.querySelector('.css-bkoiq7');
+  if (button) {
+      ['touchstart', 'touchend'].forEach(eventType => 
+          button.dispatchEvent(new TouchEvent(eventType, { bubbles: true, cancelable: true, touches: [new Touch({ identifier: 1, target: button })] }))
+      );
+      button.click();
+      messageBox.style.display = 'none';
+  } else {
+      messageBox.textContent = '[MemeFiBot] Не удалось найти кнопку спина!!! Spin button not found!!!';
+      messageBox.style.display = 'block';
+      setTimeout(() => {
+          messageBox.style.display = 'none';
+      }, 3000);
+  }
+  setTimeout(clickButton, Math.random() * 2500 + 2500);
+}
+
 const settingsButton = document.createElement('button');
 settingsButton.className = 'settings-button';
 settingsButton.textContent = '⚙️';
 settingsButton.onclick = () => {
-    settingsMenu.style.display = settingsMenu.style.display === 'block' ? 'none' : 'block';
+  settingsMenu.style.display = settingsMenu.style.display === 'block' ? 'none' : 'block';
 };
 document.body.appendChild(settingsButton);
 
 const style = document.createElement('style');
 style.textContent = `
-    .settings-menu {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(40, 44, 52, 0.95);
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      color: #abb2bf;
-      font-family: 'Arial', sans-serif;
-      z-index: 10000;
-      padding: 20px;
-      width: 300px;
-    }
-    .settings-title {
-      color: #61afef;
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .settings-close-button {
-      background: none;
-      border: none;
-      color: #e06c75;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 0;
-    }
-    .setting-item {
-      margin-bottom: 12px;
-    }
-    .setting-label {
-      display: flex;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .setting-label-text {
-      color: #e5c07b;
-      margin-right: 5px;
-    }
-    .help-icon {
-      cursor: help;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background-color: #61afef;
-      color: #282c34;
-      font-size: 10px;
-      font-weight: bold;
-    }
-    .setting-input {
-      display: flex;
-      align-items: center;
-    }
-    .setting-slider {
-      flex-grow: 1;
-      margin-right: 8px;
-    }
-    .setting-value {
-      min-width: 30px;
-      text-align: right;
-      font-size: 11px;
-    }
-    .tooltip {
-      position: relative;
-    }
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 200px;
-      background-color: #4b5263;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -100px;
-      opacity: 0;
-      transition: opacity 0.3s;
-      font-size: 11px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
-    .pause-resume-btn {
-      display: block;
-      width: calc(100% - 10px);
-      padding: 8px;
-      margin: 15px 5px;
-      background-color: #98c379;
-      color: #282c34;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-      transition: background-color 0.3s;
-    }
-    .pause-resume-btn:hover {
-      background-color: #7cb668;
-    }
-    .social-buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: space-around;
-      white-space: nowrap;
-    }
-    .social-button {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 8px;
-      border-radius: 4px;
-      background-color: #282c34;
-      color: #abb2bf;
-      text-decoration: none;
-      font-size: 12px;
-      transition: background-color 0.3s;
-    }
-    .social-button:hover {
-      background-color: #4b5263;
-    }
-    .social-button img {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
-    }
-    .settings-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: rgba(36, 146, 255, 0.8);
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      z-index: 9999;
-    }
-  `;
+  .settings-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(40, 44, 52, 0.95);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color: #abb2bf;
+    font-family: 'Arial', sans-serif;
+    z-index: 10000;
+    padding: 20px;
+    width: 300px;
+  }
+  .settings-title {
+    color: #61afef;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .settings-close-button {
+    background: none;
+    border: none;
+    color: #e06c75;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+  }
+  .setting-item {
+    margin-bottom: 12px;
+  }
+  .setting-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .setting-label-text {
+    color: #e5c07b;
+    margin-right: 5px;
+  }
+  .help-icon {
+    cursor: help;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #61afef;
+    color: #282c34;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  .setting-input {
+    display: flex;
+    align-items: center;
+  }
+  .setting-slider {
+    flex-grow: 1;
+    margin-right: 8px;
+  }
+  .setting-value {
+    min-width: 30px;
+    text-align: right;
+    font-size: 11px;
+  }
+  .tooltip {
+    position: relative;
+  }
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #4b5263;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 11px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  .pause-resume-btn {
+    display: block;
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin: 15px 5px;
+    background-color: #98c379;
+    color: #282c34;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  .pause-resume-btn:hover {
+    background-color: #7cb668;
+  }
+  .social-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    white-space: nowrap;
+  }
+  .social-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background-color: #282c34;
+    color: #abb2bf;
+    text-decoration: none;
+    font-size: 12px;
+    transition: background-color 0.3s;
+  }
+  .social-button:hover {
+    background-color: #4b5263;
+  }
+  .social-button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
+  .settings-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(36, 146, 255, 0.8);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
+.auto-spin-btn {
+  display: block;
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin: 15px 5px;
+  background-color: #e06c75;
+  color: #282c34;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+.auto-spin-btn:hover {
+  opacity: 0.9;
+}
+.message-box {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(40, 44, 52, 0.9);
+  color: #e06c75;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  z-index: 10001;
+  text-align: center;
+}
+`;
 document.head.appendChild(style);
 
 function createSettingElement(label, id, type, min, max, step, tooltipText) {
-    const container = document.createElement('div');
-    container.className = 'setting-item';
+  const container = document.createElement('div');
+  container.className = 'setting-item';
 
-    const labelContainer = document.createElement('div');
-    labelContainer.className = 'setting-label';
+  const labelContainer = document.createElement('div');
+  labelContainer.className = 'setting-label';
 
-    const labelElement = document.createElement('span');
-    labelElement.className = 'setting-label-text';
-    labelElement.textContent = label;
+  const labelElement = document.createElement('span');
+  labelElement.className = 'setting-label-text';
+  labelElement.textContent = label;
 
-    const helpIcon = document.createElement('span');
-    helpIcon.textContent = '?';
-    helpIcon.className = 'help-icon tooltip';
+  const helpIcon = document.createElement('span');
+  helpIcon.textContent = '?';
+  helpIcon.className = 'help-icon tooltip';
 
-    const tooltipSpan = document.createElement('span');
-    tooltipSpan.className = 'tooltiptext';
-    tooltipSpan.innerHTML = tooltipText;
-    helpIcon.appendChild(tooltipSpan);
+  const tooltipSpan = document.createElement('span');
+  tooltipSpan.className = 'tooltiptext';
+  tooltipSpan.innerHTML = tooltipText;
+  helpIcon.appendChild(tooltipSpan);
 
-    labelContainer.appendChild(labelElement);
-    labelContainer.appendChild(helpIcon);
+  labelContainer.appendChild(labelElement);
+  labelContainer.appendChild(helpIcon);
 
-    const inputContainer = document.createElement('div');
-    inputContainer.className = 'setting-input';
+  const inputContainer = document.createElement('div');
+  inputContainer.className = 'setting-input';
 
-    let input;
-    if (type === 'checkbox') {
-        input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = id;
-        input.checked = GAME_SETTINGS[id];
-        input.addEventListener('change', (e) => {
-            GAME_SETTINGS[id] = e.target.checked;
-            saveSettings();
-        });
-        inputContainer.appendChild(input);
-    } else {
-        input = document.createElement('input');
-        input.type = type;
-        input.id = id;
-        input.min = min;
-        input.max = max;
-        input.step = step;
-        input.value = GAME_SETTINGS[id];
-        input.className = 'setting-slider';
+  let input;
+  if (type === 'checkbox') {
+      input = document.createElement('input');
+      input.type = 'checkbox';
+      input.id = id;
+      input.checked = GAME_SETTINGS[id];
+      input.addEventListener('change', (e) => {
+          GAME_SETTINGS[id] = e.target.checked;
+          saveSettings();
+      });
+      inputContainer.appendChild(input);
+  } else {
+      input = document.createElement('input');
+      input.type = type;
+      input.id = id;
+      input.min = min;
+      input.max = max;
+      input.step = step;
+      input.value = GAME_SETTINGS[id];
+      input.className = 'setting-slider';
 
-        const valueDisplay = document.createElement('span');
-        valueDisplay.id = `${id}Display`;
-        valueDisplay.textContent = GAME_SETTINGS[id];
-        valueDisplay.className = 'setting-value';
+      const valueDisplay = document.createElement('span');
+      valueDisplay.id = `${id}Display`;
+      valueDisplay.textContent = GAME_SETTINGS[id];
+      valueDisplay.className = 'setting-value';
 
-        input.addEventListener('input', (e) => {
-            GAME_SETTINGS[id] = parseFloat(e.target.value);
-            valueDisplay.textContent = e.target.value;
-            saveSettings();
-        });
+      input.addEventListener('input', (e) => {
+          GAME_SETTINGS[id] = parseFloat(e.target.value);
+          valueDisplay.textContent = e.target.value;
+          saveSettings();
+      });
 
-        inputContainer.appendChild(input);
-        inputContainer.appendChild(valueDisplay);
-    }
+      inputContainer.appendChild(input);
+      inputContainer.appendChild(valueDisplay);
+  }
 
-    container.appendChild(labelContainer);
-    container.appendChild(inputContainer);
-    return container;
+  container.appendChild(labelContainer);
+  container.appendChild(inputContainer);
+  return container;
 }
 
 function saveSettings() {
-    localStorage.setItem('MemeFIAutoclickerSettings', JSON.stringify(GAME_SETTINGS));
+  localStorage.setItem('MemeFIAutoclickerSettings', JSON.stringify(GAME_SETTINGS));
 }
 
 function loadSettings() {
-    const savedSettings = localStorage.getItem('MemeFIAutoclickerSettings');
-    if (savedSettings) {
-        const parsedSettings = JSON.parse(savedSettings);
-        GAME_SETTINGS = {
-            ...GAME_SETTINGS,
-            ...parsedSettings
-        };
-    }
+  const savedSettings = localStorage.getItem('MemeFIAutoclickerSettings');
+  if (savedSettings) {
+      const parsedSettings = JSON.parse(savedSettings);
+      GAME_SETTINGS = {
+          ...GAME_SETTINGS,
+          ...parsedSettings
+      };
+      autoSpinButton.textContent = GAME_SETTINGS.autoSpin ? 'AutoSpin: On' : 'AutoSpin: Off';
+      autoSpinButton.style.backgroundColor = GAME_SETTINGS.autoSpin ? '#98c379' : '#e06c75';
+  }
 }
 
 loadSettings();
@@ -410,8 +485,8 @@ let attempts = 0;
 findAndClick();
 
 setInterval(() => {
-    if (!document.querySelector('div[aria-disabled="false"].css-79elbk')) {
-        attempts = 0;
-        findAndClick();
-    }
+  if (!document.querySelector('div[aria-disabled="false"].css-79elbk')) {
+      attempts = 0;
+      findAndClick();
+  }
 }, 5000);
