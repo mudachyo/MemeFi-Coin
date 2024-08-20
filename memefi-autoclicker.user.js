@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.4
+// @version      1.5
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -61,35 +61,39 @@ function triggerClick(element) {
 
 function findAndClick() {
   if (isGamePaused) {
-      setTimeout(findAndClick, 1000);
-      return;
+    setTimeout(findAndClick, 1000);
+    return;
   }
 
   const targetElement = document.querySelector('div[aria-disabled="false"].css-79elbk');
 
   if (targetElement) {
-      function clickWithRandomInterval() {
-          if (isGamePaused) {
-              setTimeout(findAndClick, 1000);
-              return;
-          }
-          triggerClick(targetElement);
-          const randomInterval = Math.floor(Math.random() * (GAME_SETTINGS.maxClickDelay - GAME_SETTINGS.minClickDelay + 1)) + GAME_SETTINGS.minClickDelay;
-          setTimeout(clickWithRandomInterval, randomInterval);
+    function clickWithRandomInterval() {
+      if (isGamePaused) {
+        setTimeout(findAndClick, 1000);
+        return;
       }
+      triggerClick(targetElement);
+      const randomInterval = Math.floor(Math.random() * (GAME_SETTINGS.maxClickDelay - GAME_SETTINGS.minClickDelay + 1)) + GAME_SETTINGS.minClickDelay;
+      setTimeout(clickWithRandomInterval, randomInterval);
 
-      console.log(`${logPrefix}Element found. Starting auto-clicker...`, styles.success);
-      clickWithRandomInterval();
-  } else {
-      if (attempts < 5) {
-          attempts++;
-          console.log(`${logPrefix}Attempt ${attempts} to find the element failed. Retrying in 3 seconds...`, styles.info);
-          setTimeout(findAndClick, 3000);
-      } else {
-          console.log(`${logPrefix}Element not found after 5 attempts. Restarting search...`, styles.error);
-          attempts = 0;
-          setTimeout(findAndClick, 3000);
+      if (Math.random() < 0.1) {
+        checkAndClickIconButton();
       }
+    }
+
+    console.log(`${logPrefix}Element found. Starting auto-clicker...`, styles.success);
+    clickWithRandomInterval();
+  } else {
+    if (attempts < 5) {
+      attempts++;
+      console.log(`${logPrefix}Attempt ${attempts} to find the element failed. Retrying in 3 seconds...`, styles.info);
+      setTimeout(findAndClick, 3000);
+    } else {
+      console.log(`${logPrefix}Element not found after 5 attempts. Restarting search...`, styles.error);
+      attempts = 0;
+      setTimeout(findAndClick, 3000);
+    }
   }
 }
 
@@ -177,6 +181,31 @@ function toggleAutoSpin() {
   if (GAME_SETTINGS.autoSpin) {
       clickButton();
   }
+}
+
+function checkAndClickIconButton() {
+  const iconButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-primary.MuiButton-primaryPrimary.MuiButton-sizeLarge.MuiButton-primarySizeLarge.MuiButton-colorPrimary.css-y90z6f');
+  if (iconButton) {
+    iconButton.click();
+    console.log(`${logPrefix}Clicked icon button`, styles.success);
+    waitForClaimButton();
+  }
+}
+
+function waitForClaimButton() {
+  const checkInterval = setInterval(() => {
+    const claimButton = document.querySelector('body > div.MuiDrawer-root.MuiDrawer-modal.MuiModal-root.css-1muh5pq > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper.MuiDrawer-paperAnchorBottom.css-dsgero > div.MuiBox-root.css-6tldie > button');
+    if (claimButton) {
+      clearInterval(checkInterval);
+      claimButton.click();
+      console.log(`${logPrefix}Clicked Claim coins button`, styles.success);
+    }
+  }, 1000);
+
+  setTimeout(() => {
+    clearInterval(checkInterval);
+    console.log(`${logPrefix}Claim coins button not found within 30 seconds`, styles.error);
+  }, 30000);
 }
 
 function clickButton() {
