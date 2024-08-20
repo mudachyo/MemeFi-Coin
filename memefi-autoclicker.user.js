@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.6
+// @version      1.7
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -184,25 +184,19 @@ function toggleAutoSpin() {
 }
 
 function checkAndClickIconButton() {
-  const spanElement = document.querySelector('.MuiTypography-root.MuiTypography-bodySmallExtraBoldV2.css-ooahs7');
+  const spanElement = document.querySelector('.MuiTypography-root.MuiTypography-bodySmallExtraBoldV2.css-1sz6sja');
   
-  if (spanElement) {
-    const spanText = spanElement.textContent;
-    
-    const hasNumbers = /\d/.test(spanText);
-    
-    if (!hasNumbers) {
-      const iconButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-primary.MuiButton-primaryPrimary.MuiButton-sizeLarge.MuiButton-primarySizeLarge.MuiButton-colorPrimary.css-y90z6f');
-      if (iconButton) {
-        iconButton.click();
-        console.log(`${logPrefix}Clicked Claim Bot`, styles.success);
-        waitForClaimButton();
-      }
+  if (spanElement && spanElement.textContent === 'Claim') {
+    const iconButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-primary.MuiButton-primaryPrimary.MuiButton-sizeLarge.MuiButton-primarySizeLarge.MuiButton-colorPrimary.css-y90z6f');
+    if (iconButton) {
+      iconButton.click();
+      console.log(`${logPrefix}Clicked Claim Bot`, styles.success);
+      waitForClaimButton();
     } else {
-      console.log(`${logPrefix}Autoclaim bot has not yet completed the timer`, styles.info);
+      console.log(`${logPrefix}Claim bot button not found`, styles.error);
     }
   } else {
-    console.log(`${logPrefix}Timer not found`, styles.error);
+    console.log(`${logPrefix}Autoclaim bot has not yet completed the timer`, styles.info);
   }
 }
 
