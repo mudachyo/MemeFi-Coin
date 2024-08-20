@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.5
+// @version      1.6
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -184,13 +184,28 @@ function toggleAutoSpin() {
 }
 
 function checkAndClickIconButton() {
-  const iconButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-primary.MuiButton-primaryPrimary.MuiButton-sizeLarge.MuiButton-primarySizeLarge.MuiButton-colorPrimary.css-y90z6f');
-  if (iconButton) {
-    iconButton.click();
-    console.log(`${logPrefix}Clicked icon button`, styles.success);
-    waitForClaimButton();
+  const spanElement = document.querySelector('.MuiTypography-root.MuiTypography-bodySmallExtraBoldV2.css-ooahs7');
+  
+  if (spanElement) {
+    const spanText = spanElement.textContent;
+    
+    const hasNumbers = /\d/.test(spanText);
+    
+    if (!hasNumbers) {
+      const iconButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-primary.MuiButton-primaryPrimary.MuiButton-sizeLarge.MuiButton-primarySizeLarge.MuiButton-colorPrimary.css-y90z6f');
+      if (iconButton) {
+        iconButton.click();
+        console.log(`${logPrefix}Clicked Claim Bot`, styles.success);
+        waitForClaimButton();
+      }
+    } else {
+      console.log(`${logPrefix}Autoclaim bot has not yet completed the timer`, styles.info);
+    }
+  } else {
+    console.log(`${logPrefix}Timer not found`, styles.error);
   }
 }
+
 
 function waitForClaimButton() {
   const checkInterval = setInterval(() => {
