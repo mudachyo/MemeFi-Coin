@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.7
+// @version      1.8
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -186,7 +186,7 @@ function toggleAutoSpin() {
 function checkAndClickIconButton() {
   const spanElement = document.querySelector('.MuiTypography-root.MuiTypography-bodySmallExtraBoldV2.css-1sz6sja');
   
-  if (spanElement && spanElement.textContent === 'Claim') {
+  if (spanElement && /^(Claim|Клейм|دریافت کنید)$/.test(spanElement.textContent)) {
     const iconButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-primary.MuiButton-primaryPrimary.MuiButton-sizeLarge.MuiButton-primarySizeLarge.MuiButton-colorPrimary.css-y90z6f');
     if (iconButton) {
       iconButton.click();
@@ -199,7 +199,6 @@ function checkAndClickIconButton() {
     console.log(`${logPrefix}Autoclaim bot has not yet completed the timer`, styles.info);
   }
 }
-
 
 function waitForClaimButton() {
   const checkInterval = setInterval(() => {
