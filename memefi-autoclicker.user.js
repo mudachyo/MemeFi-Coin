@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.8
+// @version      1.9
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -202,7 +202,7 @@ function checkAndClickIconButton() {
 
 function waitForClaimButton() {
   const checkInterval = setInterval(() => {
-    const claimButton = document.querySelector('body > div.MuiDrawer-root.MuiDrawer-modal.MuiModal-root.css-1muh5pq > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper.MuiDrawer-paperAnchorBottom.css-dsgero > div.MuiBox-root.css-6tldie > button');
+    const claimButton = document.querySelector('body > div.MuiDrawer-root.MuiDrawer-modal.MuiModal-root.css-1muh5pq > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper.MuiDrawer-paperAnchorBottom.css-dsgero > div.MuiBox-root.css-4q3rnc > button');
     if (claimButton) {
       clearInterval(checkInterval);
       claimButton.click();
