@@ -11,7 +11,7 @@
 ## Corrects Connection Failed error
 - Install the [Resource Override](https://chromewebstore.google.com/detail/resource-override/pkoacgokdfckfpndoffpifphamojphii) extension in your browser.
 - Open the extension settings and enter the following information:
-- **Tab URL:** `tg-app.memefi.club`
+- **Tab URL:** `*`
 - **From:** `https://tg-app.memefi.club/assets/index-Bmcz72EK.js`
 - **To:** `https://mudachyo.codes/memefi/index-Bmcz72EK.js`
 ![Settings](settings.png)

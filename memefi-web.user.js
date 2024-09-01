@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI web
-// @version      1.2
+// @version      1.3
 // @description  Running TapSwap in a browser
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
@@ -32,8 +32,8 @@
     function checkConnectionFailed() {
         const errorElement = document.querySelector('h3.MuiTypography-root.MuiTypography-h3.css-gwcfg4');
         if (errorElement && errorElement.textContent.trim() === 'Connection Failed') {
-            const messageRu = 'Для того, чтобы исправить эту ошибку, вам необходимо установить Resource Override и указать в него необходимые настройки, которые указаны тут <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">';
-            const messageEn = 'In order to fix this error, you need to install Resource Override and specify the necessary settings in it, which are listed here <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">';
+            const messageRu = 'Для того, чтобы исправить эту ошибку, вам необходимо установить Resource Override и указать в него необходимые настройки, которые указаны <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">тут</a>.';
+            const messageEn = 'In order to fix this error, you need to install Resource Override and specify the necessary settings in it, which are listed here <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">here</a>.';
             const message = `${messageRu}<br><br>${messageEn}`;
             const div = document.createElement('div');
             div.innerHTML = message;

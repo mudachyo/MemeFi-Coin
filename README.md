@@ -11,7 +11,7 @@
 ## Исправление ошибки Connection Failed
 - Установить в свой бразуер расширение [Resource Override](https://chromewebstore.google.com/detail/resource-override/pkoacgokdfckfpndoffpifphamojphii)
 - Открыть настройки расширения и вписать следующие данные:
-- **Tab URL:** `tg-app.memefi.club`
+- **Tab URL:** `*`
 - **From:** `https://tg-app.memefi.club/assets/index-Bmcz72EK.js`
 - **To:** `https://mudachyo.codes/memefi/index-Bmcz72EK.js`
 ![Settings](settings.png)
