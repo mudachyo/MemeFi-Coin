@@ -8,6 +8,13 @@
 - In order for **MemeFi** to open in a browser, install [this script](https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-web.user.js)
 - To install **autoclicker** install [this script](https://github.com/mudachyo/MemeFi-Coin/raw/main/memefi-autoclicker.user.js)
 - Open [Bot MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
+## Corrects Connection Failed error
+- Install the [Resource Override](https://chromewebstore.google.com/detail/resource-override/pkoacgokdfckfpndoffpifphamojphii) extension in your browser.
+- Open the extension settings and enter the following information:
+- **Tab URL:** `tg-app.memefi.club`
+- **From:** `https://tg-app.memefi.club/assets/index-Bmcz72EK.js`
+- **To:** `https://mudachyo.codes/memefi/index-Bmcz72EK.js`
+![Settings](settings.png)
 ---
 - ![Result](result.png)
 
@@ -31,9 +38,13 @@
 >
 > - [Сrossfi + Autoclicker](https://github.com/mudachyo/Crossfi)
 >
-> - [BUMP](https://github.com/mudachyo/BUMP)
+> - [BUMP + Autoclicker](https://github.com/mudachyo/BUMP)
 >
-> - [W-Coin](https://github.com/mudachyo/W-Coin)
+> - [W-Coin + Autoclicker](https://github.com/mudachyo/W-Coin)
+>
+> - [1win + Autoclicker](https://github.com/mudachyo/1win-Token)
+>
+> - [Not Pixel + Autoclicker](https://github.com/mudachyo/Not-Pixel)
 ---
 > [!IMPORTANT] 
 > Donation
