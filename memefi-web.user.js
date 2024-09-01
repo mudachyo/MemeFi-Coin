@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI web
-// @version      1.1
+// @version      1.2
 // @description  Running TapSwap in a browser
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
@@ -28,6 +28,31 @@
         });
     });
 
+    // Функция для проверки наличия элемента с ошибкой подключения
+    function checkConnectionFailed() {
+        const errorElement = document.querySelector('h3.MuiTypography-root.MuiTypography-h3.css-gwcfg4');
+        if (errorElement && errorElement.textContent.trim() === 'Connection Failed') {
+            const messageRu = 'Для того, чтобы исправить эту ошибку, вам необходимо установить Resource Override и указать в него необходимые настройки, которые указаны тут <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">';
+            const messageEn = 'In order to fix this error, you need to install Resource Override and specify the necessary settings in it, which are listed here <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">';
+            const message = `${messageRu}<br><br>${messageEn}`;
+            const div = document.createElement('div');
+            div.innerHTML = message;
+            div.style.position = 'fixed';
+            div.style.top = '10px';
+            div.style.left = '10px';
+            div.style.backgroundColor = '#222';
+            div.style.color = 'white';
+            div.style.border = '1px solid #444';
+            div.style.padding = '15px';
+            div.style.borderRadius = '5px';
+            div.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+            document.body.appendChild(div);
+        }
+    }
+
+    // Запуск проверки каждые 1 секунду
+    setInterval(checkConnectionFailed, 1000);
+    
     // Start observing the document for script tags being added
     observer.observe(document.documentElement, { childList: true, subtree: true });
 
