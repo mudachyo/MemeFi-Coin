@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MemeFI web
-// @version      1.3
-// @description  Running TapSwap in a browser
+// @version      1.4
+// @description  Running MemeFI in a browser
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -31,10 +31,19 @@
     // Функция для проверки наличия элемента с ошибкой подключения
     function checkConnectionFailed() {
         const errorElement = document.querySelector('h3.MuiTypography-root.MuiTypography-h3.css-gwcfg4');
-        if (errorElement && errorElement.textContent.trim() === 'Connection Failed') {
+        const errorMessages = [
+            'Connection Failed',
+            'Не удалось установить соединение',
+            'اتصال ناموفق'
+        ];
+        if (errorElement && errorMessages.includes(errorElement.textContent.trim())) {
             const messageRu = 'Для того, чтобы исправить эту ошибку, вам необходимо установить Resource Override и указать в него необходимые настройки, которые указаны <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">тут</a>.';
             const messageEn = 'In order to fix this error, you need to install Resource Override and specify the necessary settings in it, which are listed here <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">here</a>.';
-            const message = `${messageRu}<br><br>${messageEn}`;
+            const replaceValuesMessageRu = 'Необходимо заменить значения в Resource Override.';
+            const replaceValuesMessageEn = 'You need to replace the values in Resource Override.';
+            const updateDateRu = 'Дата обновления инструкции: 05.09.2024';
+            const updateDateEn = 'Instruction update date: 05.09.2024';
+            const message = `${messageRu}<br><br>${messageEn}<br><br>${replaceValuesMessageRu}<br>${replaceValuesMessageEn}<br><br>${updateDateRu}<br>${updateDateEn}`;
             const div = document.createElement('div');
             div.innerHTML = message;
             div.style.position = 'fixed';
