@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      1.9
+// @version      2.0
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -219,7 +219,7 @@ function waitForClaimButton() {
 function clickButton() {
   if (!GAME_SETTINGS.autoSpin) return;
 
-  const button = document.querySelector('.css-bkoiq7');
+  const button = document.querySelector('.css-58bkmv');
   if (button) {
       ['touchstart', 'touchend'].forEach(eventType => 
           button.dispatchEvent(new TouchEvent(eventType, { bubbles: true, cancelable: true, touches: [new Touch({ identifier: 1, target: button })] }))
