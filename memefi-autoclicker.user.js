@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      2.0
+// @version      2.1
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -13,16 +13,17 @@
 let GAME_SETTINGS = {
   minClickDelay: 30,
   maxClickDelay: 130,
-  pauseMinTime: 100000,
-  pauseMaxTime: 300000,
-autoSpin: false,
+  autoSpin: false,
+  autoTurbo: false,
+  hideUI: false
 };
 
 const styles = {
   success: 'background: #28a745; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
   starting: 'background: #8640ff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
   error: 'background: #dc3545; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
-  info: 'background: #007bff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;'
+  info: 'background: #007bff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
+  turbo: 'background: #6c757d; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;'
 };
 const logPrefix = '%c[MemeFiBot] ';
 
@@ -66,6 +67,7 @@ function findAndClick() {
   }
 
   const targetElement = document.querySelector('div[aria-disabled="false"].css-79elbk');
+  const specialElement = document.querySelector('div.sc-braxZu.gmKjLQ');
 
   if (targetElement) {
     function clickWithRandomInterval() {
@@ -74,7 +76,14 @@ function findAndClick() {
         return;
       }
       triggerClick(targetElement);
-      const randomInterval = Math.floor(Math.random() * (GAME_SETTINGS.maxClickDelay - GAME_SETTINGS.minClickDelay + 1)) + GAME_SETTINGS.minClickDelay;
+
+      let randomInterval;
+      if (specialElement && specialElement.style.display === 'block') {
+        randomInterval = Math.floor(Math.random() * (GAME_SETTINGS.minClickDelay - 10 + 1)) + 10;
+      } else {
+        randomInterval = Math.floor(Math.random() * (GAME_SETTINGS.maxClickDelay - GAME_SETTINGS.minClickDelay + 1)) + GAME_SETTINGS.minClickDelay;
+      }
+
       setTimeout(clickWithRandomInterval, randomInterval);
 
       if (Math.random() < 0.1) {
@@ -96,6 +105,27 @@ function findAndClick() {
     }
   }
 }
+
+function checkAndClickTurboBoost() {
+  const turboBoostElement = document.querySelector('img[src="/_MOCKED_ICONS_/turbo-boost.svg"]');
+
+  if (turboBoostElement) {
+    turboBoostElement.click();
+    console.log(`${logPrefix}Turbo Boost clicked!`, styles.success);
+    setTimeout(() => {
+      const specialElement = document.querySelector('div.sc-braxZu.gmKjLQ');
+      if (specialElement && specialElement.style.display === 'block') {
+        console.log(`${logPrefix}Special element detected. Starting fast auto-clicker...`, styles.success);
+        GAME_SETTINGS.minClickDelay = 10;
+        findAndClick();
+      }
+    }, 1000);
+  }
+
+  setTimeout(checkAndClickTurboBoost, 2000);
+}
+
+checkAndClickTurboBoost();
 
 const settingsMenu = document.createElement('div');
 settingsMenu.className = 'settings-menu';
@@ -126,6 +156,8 @@ function updateSettingsMenu() {
   document.getElementById('minClickDelayDisplay').textContent = GAME_SETTINGS.minClickDelay;
   document.getElementById('maxClickDelay').value = GAME_SETTINGS.maxClickDelay;
   document.getElementById('maxClickDelayDisplay').textContent = GAME_SETTINGS.maxClickDelay;
+  autoTurboButton.textContent = GAME_SETTINGS.autoTurbo ? 'Auto Use Turbo: On' : 'Auto Use Turbo: Off';
+  autoTurboButton.style.backgroundColor = GAME_SETTINGS.autoTurbo ? '#98c379' : '#e06c75';
 }
 
 settingsMenu.appendChild(createSettingElement('Min Click Delay (ms)', 'minClickDelay', 'range', 10, 5000, 10,
@@ -139,6 +171,12 @@ const messageBox = document.createElement('div');
 messageBox.className = 'message-box';
 messageBox.style.display = 'none';
 document.body.appendChild(messageBox);
+
+const autoTurboButton = document.createElement('button');
+autoTurboButton.textContent = 'Auto Use Turbo: Off';
+autoTurboButton.className = 'auto-turbo-btn';
+autoTurboButton.onclick = toggleAutoTurbo;
+settingsMenu.appendChild(autoTurboButton);
 
 const autoSpinButton = document.createElement('button');
 autoSpinButton.textContent = 'AutoSpin: Off';
@@ -171,6 +209,35 @@ socialButtons.appendChild(telegramButton);
 
 settingsMenu.appendChild(socialButtons);
 
+const hideUIButton = document.createElement('button');
+hideUIButton.textContent = 'Hide UI: Off';
+hideUIButton.className = 'hide-ui-btn';
+hideUIButton.onclick = toggleHideUI;
+settingsMenu.insertBefore(hideUIButton, autoSpinButton);
+
+const hiddenUIMessage = document.createElement('div');
+hiddenUIMessage.className = 'hidden-ui-message';
+hiddenUIMessage.style.display = 'none';
+hiddenUIMessage.innerHTML = 'Скрипт продолжает работать. UI скрыт для уменьшения нагрузки на компьютер (Я надеюсь, что это поможет 😂)<br>The script continues to work. UI is hidden to reduce computer load (I hope this helps 😂)';
+document.body.appendChild(hiddenUIMessage);
+
+function toggleHideUI() {
+  const isHidden = document.querySelector('body > *:not(.settings-button):not(.settings-menu):not(.hidden-ui-message)').style.display === 'none';
+  if (isHidden) {
+    document.querySelectorAll('body > *:not(.settings-button):not(.settings-menu):not(.hidden-ui-message)').forEach(el => el.style.display = '');
+    hiddenUIMessage.style.display = 'none';
+    hideUIButton.textContent = 'Hide UI: Off';
+    hideUIButton.style.backgroundColor = '#e06c75';
+  } else {
+    document.querySelectorAll('body > *:not(.settings-button):not(.settings-menu):not(.hidden-ui-message)').forEach(el => el.style.display = 'none');
+    hiddenUIMessage.style.display = 'block';
+    hideUIButton.textContent = 'Hide UI: On';
+    hideUIButton.style.backgroundColor = '#98c379';
+  }
+  GAME_SETTINGS.hideUI = !isHidden;
+  saveSettings();
+}
+
 document.body.appendChild(settingsMenu);
 
 function toggleAutoSpin() {
@@ -196,7 +263,6 @@ function checkAndClickIconButton() {
       console.log(`${logPrefix}Claim bot button not found`, styles.error);
     }
   } else {
-    console.log(`${logPrefix}Autoclaim bot has not yet completed the timer`, styles.info);
   }
 }
 
@@ -243,6 +309,83 @@ settingsButton.onclick = () => {
   settingsMenu.style.display = settingsMenu.style.display === 'block' ? 'none' : 'block';
 };
 document.body.appendChild(settingsButton);
+
+function toggleAutoTurbo() {
+  GAME_SETTINGS.autoTurbo = !GAME_SETTINGS.autoTurbo;
+  autoTurboButton.textContent = GAME_SETTINGS.autoTurbo ? 'Auto Use Turbo: On' : 'Auto Use Turbo: Off';
+  autoTurboButton.style.backgroundColor = GAME_SETTINGS.autoTurbo ? '#98c379' : '#e06c75';
+  saveSettings();
+  if (GAME_SETTINGS.autoTurbo) {
+    checkAndActivateTurbo();
+  }
+}
+function checkAndActivateTurbo() {
+  if (!GAME_SETTINGS.autoTurbo) return;
+
+  const openBoosterButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeDecorativePrimary.MuiButton-containedSizeDecorativePrimary.MuiButton-colorPrimary.MuiButtonGroup-grouped.MuiButtonGroup-groupedHorizontal.MuiButtonGroup-groupedContained.MuiButtonGroup-groupedContainedHorizontal.MuiButtonGroup-groupedContainedPrimary.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeDecorativePrimary.MuiButton-containedSizeDecorativePrimary.MuiButton-colorPrimary.MuiButtonGroup-firstButton.css-wfy1cz');
+  if (openBoosterButton) {
+    setTimeout(() => {
+      openBoosterButton.click();
+      console.log(`${logPrefix}Нажата кнопка открытия бустеров`, styles.turbo);
+    }, 1000);
+  } else {
+    console.log(`${logPrefix}Кнопка открытия бустеров не найдена`, styles.error);
+    setTimeout(checkAndActivateTurbo, 5000); // Повторная попытка через 5 секунд
+    return;
+  }
+
+  setTimeout(() => {
+    const boosterCountElement = document.querySelector('.MuiTypography-root.MuiTypography-bodyLittleBold.css-1yf75a9');
+    if (boosterCountElement) {
+      const boosterCount = parseInt(boosterCountElement.textContent.split('/')[0].trim());
+      console.log(`${logPrefix}Осталось бустеров: ${boosterCount}`, styles.turbo); // Вывод количества оставшихся бустеров
+      if (boosterCount > 0) {
+        const activateButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-primary.MuiButton-primaryPrimary.MuiButton-sizeLarge.MuiButton-primarySizeLarge.MuiButton-colorPrimary.css-q3yh8u');
+        if (activateButton) {
+          setTimeout(() => {
+            ['pointerdown', 'mousedown', 'focus', 'pointermove', 'mousemove', 'pointerup', 'mouseup', 'click', 'blur'].forEach(eventType => 
+              activateButton.dispatchEvent(new PointerEvent(eventType, { bubbles: true, cancelable: true, pointerId: 1, width: 1, height: 1, pressure: eventType === 'pointerdown' || eventType === 'pointermove' ? 0.5 : 0 }))
+            );
+            console.log(`${logPrefix}Нажата кнопка активации Turbo`, styles.turbo);
+            setTimeout(() => {
+              const confirmButton = document.querySelector('body > div.MuiDrawer-root.MuiDrawer-modal.MuiModal-root.css-1muh5pq > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper.MuiDrawer-paperAnchorBottom.css-dsgero > div.MuiBox-root.css-4q3rnc > button');
+              if (confirmButton) {
+                setTimeout(() => {
+                  ['pointerdown', 'mousedown', 'focus', 'pointermove', 'mousemove', 'pointerup', 'mouseup', 'click', 'blur'].forEach(eventType => 
+                    confirmButton.dispatchEvent(new PointerEvent(eventType, { bubbles: true, cancelable: true, pointerId: 1, width: 1, height: 1, pressure: eventType === 'pointerdown' || eventType === 'pointermove' ? 0.5 : 0 }))
+                  );
+                  confirmButton.click(); // Нажатие на кнопку подтверждения
+                  console.log(`${logPrefix}Turbo активирован`, styles.turbo);
+                  setTimeout(() => {
+                    findAndClick(); // Активация функции findAndClick после активации Turbo
+                    checkAndActivateTurbo();
+                  }, Math.random() * 1000 + 13000); // Задержка от 13 до 14 секунд
+                }, 1000);
+              } else {
+                console.log(`${logPrefix}Не удалось найти кнопку подтверждения Turbo`, styles.error);
+              }
+            }, 500);
+          }, 1000);
+        } else {
+          console.log(`${logPrefix}Кнопка активации Turbo не найдена`, styles.error);
+        }
+      } else {
+        console.log(`${logPrefix}Нет доступных бустеров. Отключение Auto Use Turbo`, styles.info);
+        GAME_SETTINGS.autoTurbo = false;
+        updateSettingsMenu();
+        saveSettings();
+      }
+    } else {
+      console.log(`${logPrefix}Не удалось найти элемент с количеством бустеров`, styles.error);
+    }
+  }, 1500);
+}
+
+function startAutoTurbo() {
+  if (GAME_SETTINGS.autoTurbo) {
+    checkAndActivateTurbo();
+  }
+}
 
 const style = document.createElement('style');
 style.textContent = `
@@ -428,6 +571,58 @@ style.textContent = `
   z-index: 10001;
   text-align: center;
 }
+.auto-turbo-btn {
+  display: block;
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin: 15px 5px;
+  background-color: #e06c75;
+  color: #282c34;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+.auto-turbo-btn:hover {
+  opacity: 0.9;
+}
+.hide-ui-btn {
+  display: block;
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin: 15px 5px;
+  background-color: #e06c75;
+  color: #282c34;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+.hide-ui-btn:hover {
+  opacity: 0.9;
+}
+.hidden-ui-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(40, 44, 52, 0.95);
+  color: #abb2bf;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  z-index: 9998; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 80%;
+  word-wrap: break-word;
+  pointer-events: none;
+}
 `;
 document.head.appendChild(style);
 
@@ -512,11 +707,15 @@ function loadSettings() {
       };
       autoSpinButton.textContent = GAME_SETTINGS.autoSpin ? 'AutoSpin: On' : 'AutoSpin: Off';
       autoSpinButton.style.backgroundColor = GAME_SETTINGS.autoSpin ? '#98c379' : '#e06c75';
+      if (GAME_SETTINGS.hideUI) {
+        toggleHideUI();
+      }
   }
 }
 
 loadSettings();
 updateSettingsMenu();
+startAutoTurbo();
 
 let attempts = 0;
 findAndClick();
@@ -526,4 +725,4 @@ setInterval(() => {
       attempts = 0;
       findAndClick();
   }
-}, 5000);
+}, 1000);
