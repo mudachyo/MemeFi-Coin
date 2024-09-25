@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      2.1
+// @version      2.2
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -66,7 +66,7 @@ function findAndClick() {
     return;
   }
 
-  const targetElement = document.querySelector('div[aria-disabled="false"].css-79elbk');
+  const targetElement = Array.from(document.querySelectorAll('div[aria-disabled="false"]')).find(el => el.className.startsWith('css-'));
   const specialElement = document.querySelector('div.sc-braxZu.gmKjLQ');
 
   if (targetElement) {
