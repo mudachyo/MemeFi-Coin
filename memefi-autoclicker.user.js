@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      2.2
+// @version      2.3
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -322,7 +322,7 @@ function toggleAutoTurbo() {
 function checkAndActivateTurbo() {
   if (!GAME_SETTINGS.autoTurbo) return;
 
-  const openBoosterButton = document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeDecorativePrimary.MuiButton-containedSizeDecorativePrimary.MuiButton-colorPrimary.MuiButtonGroup-grouped.MuiButtonGroup-groupedHorizontal.MuiButtonGroup-groupedContained.MuiButtonGroup-groupedContainedHorizontal.MuiButtonGroup-groupedContainedPrimary.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeDecorativePrimary.MuiButton-containedSizeDecorativePrimary.MuiButton-colorPrimary.MuiButtonGroup-firstButton.css-wfy1cz');
+  const openBoosterButton = document.querySelector('#root > main > div > div > div.MuiBox-root.css-17je41m > div.MuiStack-root.css-1x0m3xf > button:nth-child(1)');
   if (openBoosterButton) {
     setTimeout(() => {
       openBoosterButton.click();

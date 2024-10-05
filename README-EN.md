@@ -13,7 +13,7 @@
 - Open the extension settings and enter the following information:
 - **Tab URL:** `*`
 - **From:** `https://tg-app.memefi.club/assets/index-*`
-- **To:** `https://mudachyo.codes/memefi/index-B8luuorR.js`
+- **To:** `https://mudachyo.codes/memefi/index-DE02Ivsc.js`
 - Open [Bot MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) and run the game
 ![Settings](settings.png)
 ---

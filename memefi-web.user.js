@@ -41,8 +41,8 @@
             const messageEn = 'In order to fix this error, you need to install Resource Override and specify the necessary settings in it, which are listed here <a href="https://github.com/mudachyo/MemeFi-Coin/" style="color: #99ff99; text-shadow: 0 0 1px #000;">here</a>.';
             const replaceValuesMessageRu = 'Необходимо заменить значения в Resource Override.';
             const replaceValuesMessageEn = 'You need to replace the values in Resource Override.';
-            const updateDateRu = 'Дата обновления инструкции: 24.09.2024';
-            const updateDateEn = 'Instruction update date: 24.09.2024';
+            const updateDateRu = 'Дата обновления инструкции: 05.10.2024';
+            const updateDateEn = 'Instruction update date: 05.10.2024';
             const message = `${messageRu}<br><br>${messageEn}<br><br>${replaceValuesMessageRu}<br>${replaceValuesMessageEn}<br><br>${updateDateRu}<br>${updateDateEn}`;
             const div = document.createElement('div');
             div.innerHTML = message;
