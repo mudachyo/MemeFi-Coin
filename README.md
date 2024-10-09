@@ -13,7 +13,7 @@
 - Открыть настройки расширения и вписать следующие данные:
 - **Tab URL:** `*`
 - **From:** `https://tg-app.memefi.club/assets/index-*`
-- **To:** `https://mudachyo.codes/memefi/index-DE02Ivsc.js`
+- **To:** `https://mudachyo.codes/memefi/index-CCGuKkxx.js`
 - Открыть [Бота MemeFi](https://web.telegram.org/k/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3Dmemefi_coin_bot%26start%3Dr_6ef9514b38) и запустить игру
 ![Settings](settings.png)
 ---
