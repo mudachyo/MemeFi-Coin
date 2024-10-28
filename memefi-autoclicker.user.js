@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      2.3
+// @version      2.4
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -348,7 +348,7 @@ function checkAndActivateTurbo() {
             );
             console.log(`${logPrefix}Нажата кнопка активации Turbo`, styles.turbo);
             setTimeout(() => {
-              const confirmButton = document.querySelector('body > div.MuiDrawer-root.MuiDrawer-modal.MuiModal-root.css-1muh5pq > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper.MuiDrawer-paperAnchorBottom.css-dsgero > div.MuiBox-root.css-4q3rnc > button');
+              const confirmButton = document.querySelector('body > div.MuiDrawer-root.MuiDrawer-modal.MuiModal-root.css-1wb7nwl > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper.MuiDrawer-paperAnchorBottom.css-dsgero > div.MuiBox-root.css-4q3rnc > button');
               if (confirmButton) {
                 setTimeout(() => {
                   ['pointerdown', 'mousedown', 'focus', 'pointermove', 'mousemove', 'pointerup', 'mouseup', 'click', 'blur'].forEach(eventType => 
