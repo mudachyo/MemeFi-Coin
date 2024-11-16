@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MemeFI Autoclicker
-// @version      2.6
+// @version      2.7
 // @author       mudachyo
 // @match        https://tg-app.memefi.club/*
 // @grant        none
@@ -319,10 +319,31 @@ function toggleAutoTurbo() {
     checkAndActivateTurbo();
   }
 }
+
+function checkAndReload() {
+    const qrImageSrc = '/sprites/qr-code.svg';
+    const interval = 2000;
+
+    setTimeout(() => {
+        const intervalId = setInterval(() => {
+            const qrImage = document.querySelector(`img[src="${qrImageSrc}"]`);
+            if (qrImage) {
+                console.log('QR-код найден, обновляем страницу.');
+                clearInterval(intervalId);
+                location.reload();
+            } else {
+                console.log('QR-код не найден, продолжаем проверку.');
+            }
+        }, interval);
+    }, 2000);
+}
+
+checkAndReload();
+
 function checkAndActivateTurbo() {
   if (!GAME_SETTINGS.autoTurbo) return;
 
-  const openBoosterButton = document.querySelector('#root > main > div > div > div.MuiBox-root.css-17je41m > div.MuiStack-root.css-1x0m3xf > button:nth-child(1)');
+  const openBoosterButton = document.querySelector('#root > main > div > div > div.MuiBox-root.css-17je41m > div.MuiStack-root.css-11lg1ga > button:nth-child(1)');
   if (openBoosterButton) {
     setTimeout(() => {
       openBoosterButton.click();
